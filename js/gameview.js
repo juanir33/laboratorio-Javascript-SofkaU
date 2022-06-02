@@ -115,6 +115,7 @@ export const renderPage = () => {
     gameAnswers,
     nextRoundContainer
   );
-  container.appendChild(gameContainer);
+  container.append(gameContainer);
   
 };
+

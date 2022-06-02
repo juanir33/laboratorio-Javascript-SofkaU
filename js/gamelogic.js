@@ -19,44 +19,44 @@ const swalBoot = Swal.mixin({
 });
 
 
-export const simpleLoginUser = () =>{
-   setPlayers();
-   setQuestions();
-  let players = getPlayer();
-  swalBoot.fire({
-    title: "Bienvenido a Preguntados 3.0",
-    text: "Para comenzar ingresa tu nombre completo",
-    showConfirmButton: true,
-    confirmButtonText: "Empezar",
-    showDenyButton: true,
-    denyButtonText: 'Ranking',
+// export const simpleLoginUser = () =>{
+//    setPlayers();
+//    setQuestions();
+//   let players = getPlayer();
+//   swalBoot.fire({
+//     title: "Bienvenido a Preguntados 3.0",
+//     text: "Para comenzar ingresa tu nombre completo",
+//     showConfirmButton: true,
+//     confirmButtonText: "Empezar",
+//     showDenyButton: true,
+//     denyButtonText: 'Ranking',
     
-    input: "text",
+//     input: "text",
     
-    inputPlaceholder: "Nombre y Apellido",
-    color: "#db5461ff",
-    background: "#defffcff" ,
-    inputValidator: (value) => {
-      if (!value) {
-        return 'Introduce tu nombre!'
-      }
-    }
+//     inputPlaceholder: "Nombre y Apellido",
+//     color: "#db5461ff",
+//     background: "#defffcff" ,
+//     inputValidator: (value) => {
+//       if (!value) {
+//         return 'Introduce tu nombre!'
+//       }
+//     }
     
-  }).then((result) => {
-    let playerName = Swal.getInput().value.toUpperCase();
+//   }).then((result) => {
+//     let playerName = Swal.getInput().value.toUpperCase();
 
-    if (result.isConfirmed) {
-      let newPlayer = playerInstance(playerName);
-      players.push(newPlayer);
-      let data = JSON.stringify(players);
-      localStorage.setItem("players", data);
+//     if (result.isConfirmed) {
+//       let newPlayer = playerInstance(playerName);
+//       players.push(newPlayer);
+//       let data = JSON.stringify(players);
+//       localStorage.setItem("players", data);
       
-      start();
-    }else if(result.isDenied){
-      toRanking();
-    }
-  });
-}
+//       start();
+//     }else if(result.isDenied){
+//       toRanking();
+//     }
+//   });
+// }
 
 
 
@@ -71,6 +71,7 @@ export const start = () => {
   selectDOMelement("#player_prize").innerHTML = `0`;
   randomQ();
 };
+
 
 export const randomQ = () => {
   let localeQuestions = getQuestion();
@@ -220,4 +221,4 @@ export const  withdraw = ()=>{
   }
 
   
-
+ 

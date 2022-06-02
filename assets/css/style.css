@@ -98,3 +98,11 @@ body {
 .text-center{
     color: var(--indian-red);
 }
+.container_login{
+    height: 100vh;
+    max-width: 760px;
+    
+}
+.container_card{
+    height: 60vh;
+}

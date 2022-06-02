@@ -1,5 +1,5 @@
 
-import { simpleLoginUser } from "./gamelogic.js";
+import { renderLogin } from "./login.js";
 
 
-window.addEventListener("onload", simpleLoginUser())
+window.addEventListener('onload' ,  renderLogin())
