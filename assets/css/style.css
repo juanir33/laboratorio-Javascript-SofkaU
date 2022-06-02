@@ -76,7 +76,7 @@ body {
 }
 
 #next {
-    /* display: none; */
+    display: none;
     background-color: none;
     color: var(--black);
 }
