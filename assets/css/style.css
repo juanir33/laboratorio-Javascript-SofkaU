@@ -1,0 +1,96 @@
+:root {
+    --light-cyan: #defffcff;
+    --lavender-web: #e2e4f6ff;
+    --indian-red: #db5461ff;
+    --teal: #0e7c7bff;
+    --dark-purple: #422040ff;
+    --correct: chartreuse ;
+    --error: brown;
+    --white: #fff;
+    --black:#000;
+    --cadet: cadetblue;
+
+}
+
+* {
+    transition: all 0.5;
+}
+
+body {
+    margin: 0;
+}
+
+.container {
+    width: 100vw;
+    height: 100%;
+    background-color: var(--light-cyan);
+    padding: 20px;
+    
+}
+
+.ranking_container {
+    height: 100vh;
+}
+
+.game_container {
+    max-width: 650px;
+    margin: 0 auto;
+    padding: 2em 0 0;
+}
+
+.game_player {
+    margin: 0 0 3em 0;
+}
+
+.game_question {
+    width: 100%;
+
+}
+
+.game_answer {
+    width: 90%;
+}
+
+.game_answer>button {
+    color: var(--black);
+    width: 100%;
+    padding: 3px;
+    margin: 0.9em 0 0 0;
+    background-color: var(--white);
+
+}
+
+.game_answer>button:hover,
+.game_answer>button:focus {
+    transform: scale(1.04);
+    background-color: var(--cadet);
+    box-shadow: none;
+}
+
+.correct {
+    background-color: var(--correct) !important;
+}
+
+.error {
+    background-color: var(--error) !important;
+}
+
+#next {
+    /* display: none; */
+    background-color: none;
+    color: var(--black);
+}
+#next:hover{
+    background-color: var(--teal);
+    color: var(--light-cyan);
+}
+
+
+#image {
+    width: 100%;
+    height: 200px;
+}
+
+.none {
+    display: none;
+}
