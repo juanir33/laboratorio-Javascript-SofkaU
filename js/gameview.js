@@ -1,5 +1,5 @@
 import { create, selectDOMelement } from "./helpers/domelements.js";
-import {randomQ} from "./gamelogic.js";
+import {nextRound, playerSelect, toRanking, withdraw} from "./gamelogic.js";
 
 const container = selectDOMelement(".container");
 
@@ -61,22 +61,22 @@ export const renderPage = () => {
 
   const answerButtonOne = create("button");
   answerButtonOne.setAttribute("id", "btn_1");
-  answerButtonOne.setAttribute("onclick", "playerSelect(event)");
+  answerButtonOne.addEventListener("click", playerSelect) ; 
   answerButtonOne.classList.add("btn", "btn-primary");
 
   const answerButtonTwo = create("button");
   answerButtonTwo.setAttribute("id", "btn_2");
-  answerButtonTwo.setAttribute("onclick", "playerSelect(event)");
+  answerButtonTwo.addEventListener("click", playerSelect)  ;
   answerButtonTwo.classList.add("btn", "btn-primary");
 
   const answerButtonTree = create("button");
   answerButtonTree.setAttribute("id", "btn_3");
-  answerButtonTree.setAttribute("onclick", "playerSelect(event)");
+  answerButtonTree.addEventListener("click", playerSelect)  ;
   answerButtonTree.classList.add("btn", "btn-primary");
 
   const answerButtonFour = create("button");
   answerButtonFour.setAttribute("id", "btn_4");
-  answerButtonFour.setAttribute("onclick", "playerSelect(event)");
+  answerButtonFour.addEventListener("click", playerSelect) 
   answerButtonFour.classList.add("btn", "btn-primary");
 
   const nextRoundContainer = create("div");
@@ -84,17 +84,17 @@ export const renderPage = () => {
 
   const nextRoundBtn = create("button");
   nextRoundBtn.setAttribute("id", "next");
-  nextRoundBtn.setAttribute("onclick", "nexRound");
+  nextRoundBtn.addEventListener("click", nextRound);
   nextRoundBtn.classList.add("btn", "btn-outline-success", "m-1");
   nextRoundBtn.innerText = "Siguiente pregunta";
 
   const withdrawBtn = create("button");
-  withdrawBtn.setAttribute("onclick", "withdraw");
+  withdrawBtn.addEventListener("click", withdraw);
   withdrawBtn.classList.add("btn", "btn-outline-danger", "m-1");
   withdrawBtn.innerText = "Retirarse";
 
   const rankingBtn = create("button");
-  rankingBtn.setAttribute("onclick", "topPlayers");
+  rankingBtn.addEventListener("click", toRanking);
   rankingBtn.classList.add("btn", "btn-outline-warning", "m-1");
   rankingBtn.innerText = "Ranking";
 

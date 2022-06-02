@@ -301,7 +301,7 @@ export  class Question {
     ),
   ];
   
-  export const setQuestion = ()=>{
+  export const setQuestions = ()=>{
   if (!localStorage.getItem("questions")) {
     localStorage.setItem("questions", JSON.stringify(questions));
   }}
@@ -313,13 +313,16 @@ export  class Question {
       this.round = 1;
       this.finalRound = 5;
     }
-  }
+  };
   export const players = [new Player("Juan"), new Player("Juanito")];
-
+  export const playerInstance = (name)=>{
+      return new Player(name);
+  };
   export const setPlayers = ()=>{
   if (!localStorage.getItem("players")) {
     localStorage.setItem("players", JSON.stringify(players));
   }
   }
+
 
   
