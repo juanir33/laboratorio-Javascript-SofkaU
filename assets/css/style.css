@@ -4,10 +4,10 @@
     --indian-red: #db5461ff;
     --teal: #0e7c7bff;
     --dark-purple: #422040ff;
-    --correct: chartreuse ;
+    --correct: chartreuse;
     --error: brown;
     --white: #fff;
-    --black:#000;
+    --black: #000;
     --cadet: cadetblue;
 
 }
@@ -25,7 +25,7 @@ body {
     height: 100%;
     background-color: var(--light-cyan);
     padding: 20px;
-    
+
 }
 
 .ranking_container {
@@ -80,7 +80,8 @@ body {
     background-color: none;
     color: var(--black);
 }
-#next:hover{
+
+#next:hover {
     background-color: var(--teal);
     color: var(--light-cyan);
 }
@@ -95,14 +96,16 @@ body {
     display: none;
 }
 
-.text-center{
+.text-center {
     color: var(--indian-red);
 }
-.container_login{
+
+.container_login {
     height: 100vh;
     max-width: 760px;
-    
+
 }
-.container_card{
+
+.container_card {
     height: 60vh;
 }

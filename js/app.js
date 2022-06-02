@@ -1,5 +1,3 @@
-
 import { renderLogin } from "./login.js";
 
-
-window.addEventListener('onload' ,  renderLogin())
+window.addEventListener("onload", renderLogin());

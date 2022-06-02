@@ -1,11 +1,17 @@
 import { create, selectDOMelement } from "./helpers/domelements.js";
 import { getPlayer } from "./helpers/getLocalData.js";
-
+/**
+ *  @author Juan Ramallo  https://github.com/juanir33
+ * @version 1.0
+ *
+ * Renderizado del ranking de jugadores, se crea tabla por medio de metodos del DOM para mostrar el listado
+ * ordenados por el premio mayotr a menor
+ */
 const render = () => {
   const container = selectDOMelement(".ranking_container");
   const containerTitle = create("h2");
-  containerTitle.classList.add('text-center')
-  containerTitle.innerText= "Ranking de Jugadores";
+  containerTitle.classList.add("text-center");
+  containerTitle.innerText = "Ranking de Jugadores";
   const tableContainer = create("div");
   tableContainer.classList.add("game_container", "table-responsive");
   const rankingTable = create("table");
@@ -32,6 +38,10 @@ const render = () => {
 };
 render();
 
+/**
+ * Obtenemos lista de jugadores, se ordena mayor a menor segun premio, y se muestra en el body de la tabla
+ * creada en el metodo render.
+ */
 const topPlay = () => {
   let top = getPlayer();
   let sorted = top.sort((a, b) => {

@@ -4,6 +4,12 @@ import { create, selectDOMelement } from "./helpers/domelements.js";
 import { getPlayer } from "./helpers/getLocalData.js";
 
 const container = selectDOMelement(".container");
+
+/**
+ * @author Juan Ramallo  https://github.com/juanir33
+ * @version 1.0
+ * Renderizado de la pagina de login, se crean los componentes por medio de los metodos del DOM
+ */
 export const renderLogin = () => {
   container.classList.add("container_login", "position-relative");
 
@@ -65,6 +71,10 @@ export const renderLogin = () => {
   container.append(cardContainer);
 };
 
+/**
+ * Validacion del proceso de login de usuario
+ * @param {*} event
+ */
 const toGame = (event) => {
   event.preventDefault();
   setPlayers();

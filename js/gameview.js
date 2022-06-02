@@ -1,9 +1,19 @@
 import { create, selectDOMelement } from "./helpers/domelements.js";
-import {nextRound, playerSelect, toRanking, withdraw} from "./gamelogic.js";
+import { nextRound, playerSelect, toRanking, withdraw } from "./gamelogic.js";
 
 const container = selectDOMelement(".container");
 
+/**
+ * @author Juan Ramallo
+ * @version 1.0
+ *
+ * Funcion para renderizar elementos del DOM, para el juego,
+ * se crean los componentes, se agregan clases, informacion a mostrar, y metodos.
+ */
 export const renderPage = () => {
+  /**
+   * Crea contenedor general del juego
+   */
   const gameContainer = create("div");
   gameContainer.classList.add(
     "game_container",
@@ -12,6 +22,10 @@ export const renderPage = () => {
     "justify-content-between",
     "align-items-center"
   );
+
+  /**
+   * Contenedor para mostrar informacion sobre el jugador actual
+   */
   const playerContainer = create("div");
   playerContainer.classList.add(
     "game_player",
@@ -31,7 +45,9 @@ export const renderPage = () => {
   const playerRound = create("h6");
   playerRound.setAttribute("id", "player_round");
   playerRound.innerHTML = "round";
-  //card para mostrar la pregunta
+  /**
+   * Contenedor tipo card para renderizar las preguntas
+   */
   const gameQuestions = create("div");
   gameQuestions.classList.add("game_question");
 
@@ -55,30 +71,34 @@ export const renderPage = () => {
   cardBodyQuestion.setAttribute("id", "question");
   cardBodyQuestion.classList.add("card-text");
   cardBodyQuestion.innerHTML = "hola";
-
+  /**
+   * Contenedor de los botones de respuesta para el juego
+   */
   const gameAnswers = create("div");
   gameAnswers.classList.add("game_answer", "d-flex", "flex-wrap");
 
   const answerButtonOne = create("button");
   answerButtonOne.setAttribute("id", "btn_1");
-  answerButtonOne.addEventListener("click", playerSelect) ; 
+  answerButtonOne.addEventListener("click", playerSelect);
   answerButtonOne.classList.add("btn", "btn-primary");
 
   const answerButtonTwo = create("button");
   answerButtonTwo.setAttribute("id", "btn_2");
-  answerButtonTwo.addEventListener("click", playerSelect)  ;
+  answerButtonTwo.addEventListener("click", playerSelect);
   answerButtonTwo.classList.add("btn", "btn-primary");
 
   const answerButtonTree = create("button");
   answerButtonTree.setAttribute("id", "btn_3");
-  answerButtonTree.addEventListener("click", playerSelect)  ;
+  answerButtonTree.addEventListener("click", playerSelect);
   answerButtonTree.classList.add("btn", "btn-primary");
 
   const answerButtonFour = create("button");
   answerButtonFour.setAttribute("id", "btn_4");
-  answerButtonFour.addEventListener("click", playerSelect) 
+  answerButtonFour.addEventListener("click", playerSelect);
   answerButtonFour.classList.add("btn", "btn-primary");
-
+  /**
+   * Contenedor de botones para seguir jugando, retirarse, o visualizar el ranking de jugadores
+   */
   const nextRoundContainer = create("div");
   nextRoundContainer.classList.add("m-2");
 
@@ -116,6 +136,4 @@ export const renderPage = () => {
     nextRoundContainer
   );
   container.append(gameContainer);
-  
 };
-

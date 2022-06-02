@@ -1,84 +1,53 @@
 import { selectDOMelement } from "./helpers/domelements.js";
 import { getQuestion, getPlayer, restart } from "./helpers/getLocalData.js";
-import {renderPage} from "./gameview.js";
-import {setQuestions, setPlayers, playerInstance} from './db/database.js'
+import { renderPage } from "./gameview.js";
+
+/**
+ * @author Juan Ramallo  https://github.com/juanir33
+ * @version 1.0
+ */
 
 let activePlayer = {};
 let mayorPrize = 68500;
 let randomQuestion = {};
 let users = [];
+/**
+ * Constante para mostar una alerta  personalizada
+ * se usa libreria https://sweetalert2.github.io/
+ */
 const swalBoot = Swal.mixin({
   customClass: {
     confirmButton: "btn btn-success m-1",
     cancelButton: "btn btn-danger m-1",
-    denyButton: "btn btn-outline-warning"
+    denyButton: "btn btn-outline-warning",
   },
   buttonsStyling: false,
   allowEscapeKey: false,
   allowOutsideClick: false,
 });
-
-
-// export const simpleLoginUser = () =>{
-//    setPlayers();
-//    setQuestions();
-//   let players = getPlayer();
-//   swalBoot.fire({
-//     title: "Bienvenido a Preguntados 3.0",
-//     text: "Para comenzar ingresa tu nombre completo",
-//     showConfirmButton: true,
-//     confirmButtonText: "Empezar",
-//     showDenyButton: true,
-//     denyButtonText: 'Ranking',
-    
-//     input: "text",
-    
-//     inputPlaceholder: "Nombre y Apellido",
-//     color: "#db5461ff",
-//     background: "#defffcff" ,
-//     inputValidator: (value) => {
-//       if (!value) {
-//         return 'Introduce tu nombre!'
-//       }
-//     }
-    
-//   }).then((result) => {
-//     let playerName = Swal.getInput().value.toUpperCase();
-
-//     if (result.isConfirmed) {
-//       let newPlayer = playerInstance(playerName);
-//       players.push(newPlayer);
-//       let data = JSON.stringify(players);
-//       localStorage.setItem("players", data);
-      
-//       start();
-//     }else if(result.isDenied){
-//       toRanking();
-//     }
-//   });
-// }
-
-
-
+/**
+ * Comienzo del juego
+ */
 export const start = () => {
   users = getPlayer();
   renderPage();
 
   activePlayer = users[users.length - 1];
-  console.log(activePlayer);
+
   updateRound();
   selectDOMelement("#player_name").innerHTML = `${activePlayer.name}`;
   selectDOMelement("#player_prize").innerHTML = `0`;
   randomQ();
 };
-
-
+/**
+ * Tomamos una pregunta al azar de la caytegoria que toca en la ronda actual de juego.
+ */
 export const randomQ = () => {
   let localeQuestions = getQuestion();
   let questions = localeQuestions.filter(
     (question) => question.level == activePlayer.round
   );
-   randomQuestion = questions[Math.floor(Math.random() * questions.length)];
+  randomQuestion = questions[Math.floor(Math.random() * questions.length)];
 
   let answers = [
     randomQuestion.answer,
@@ -86,6 +55,10 @@ export const randomQ = () => {
     randomQuestion.falseB,
     randomQuestion.falseC,
   ];
+  /**
+   * Se ordenan de forma aleatoria las respuestas para que aprezcan en distintos botones cada ves,
+   * una ves ordenado, se renderizan las nuevas respuestas.
+   */
   answers.sort(() => Math.random() - 0.5);
 
   selectDOMelement("#image").setAttribute("src", randomQuestion.image);
@@ -103,6 +76,10 @@ const updateRound = () => {
   return actualRound;
 };
 
+/**
+ * Validacion de la respuesta elegida por el usuario escuchamos el evento 'click' para conocer que respondio el jugador
+ * @param {*} event evento de la accion 'click'
+ */
 export const playerSelect = (event) => {
   let selectBtn = { value: event.target.outerText, id: `#${event.target.id}` };
   console.log(selectBtn.id);
@@ -120,7 +97,10 @@ export const playerSelect = (event) => {
     gameOver();
   }
 };
-
+/**
+ * Se desactvan los botones de respuestas
+ * @param {*} value acepta valor boolean
+ */
 const disableBtn = (value) => {
   const btnGroup = [
     selectDOMelement("#btn_1"),
@@ -133,6 +113,9 @@ const disableBtn = (value) => {
   });
 };
 
+/**
+ * Actualizacion de los premios acumulados, para mostrar en pantalla y finalizar juego si llego al premio mayor
+ */
 const updatePrize = () => {
   let actualPlayer = selectDOMelement("#player_prize");
   let currentPrize = actualPlayer.outerText;
@@ -144,8 +127,11 @@ const updatePrize = () => {
     alert("ganaste");
   }
   setUser();
-}
+};
 
+/**
+ * Funcion para generar nueva ronda cuando el jugador acepte seguir jugando
+ */
 export const nextRound = () => {
   selectDOMelement("#next").disabled = true;
   activePlayer.round++;
@@ -154,71 +140,78 @@ export const nextRound = () => {
   randomQ();
 };
 
+/**
+ * Finalizacion del juego cuando se pierde, borra premios y actualiza la base de jugadores, reinicia el mismo
+ */
 const gameOver = () => {
   activePlayer.prize = 0;
   setUser();
-  
-  swalBoot.fire({
-    title: "Lo sentimos has perdido todo",
-    text: `$${activePlayer.prize}`,
-    showConfirmButton: true,
-    confirmButtonText: "Ok",
-  }).then((result) => {
-    if (result.isConfirmed) {
-      restart();
+
+  swalBoot
+    .fire({
+      title: "Lo sentimos has perdido todo",
+      text: `$${activePlayer.prize}`,
+      showConfirmButton: true,
+      confirmButtonText: "Ok",
+    })
+    .then((result) => {
+      if (result.isConfirmed) {
+        restart();
+      }
+    });
+};
+
+/**
+ * Funcion para actualizar los premios  que va acumulando el jugador actual en la memoria local de navegador
+ */
+export const setUser = () => {
+  users.forEach((player) => {
+    if (player.name === activePlayer.name) {
+      player.prize = activePlayer.prize;
+      let data = JSON.stringify(users);
+      localStorage.setItem("players", data);
     }
   });
+};
 
-}
+/**
+ * Funcion para permitir al jugador retirarse con lo ganado antes de finalizar juego
+ */
+export const withdraw = () => {
+  swalBoot
+    .fire({
+      title: "Estas seguro de retirarte",
+      text: "No hay vuelta atras!",
+      icon: "question",
+      showCancelButton: true,
+      cancelButtonText: "Volver a jugar",
+      confirmButtonText: "Si, deseo retirarme",
 
-export const setUser = ()=>{
-  
-    users.forEach((player) => {
-      if (player.name === activePlayer.name) {
-        player.prize = activePlayer.prize;
-        let  data = JSON.stringify(users);
-        localStorage.setItem("players", data);
+      background: "#defffcff",
+      iconColor: "#db5461ff",
+    })
+    .then((result) => {
+      if (result.isConfirmed) {
+        swalBoot
+          .fire({
+            title: "Listo, retiro exitoso!",
+            text: `Has ganado $${activePlayer.prize}`,
+            icon: "success",
+            color: "#db5461ff",
+            background: "#defffcff",
+          })
+          .then((results) => {
+            if (results.isConfirmed) {
+              restart();
+            }
+          });
       }
-  })
-  }
+    });
+};
 
-export const  withdraw = ()=>{
-    swalBoot
-      .fire({
-        title: "Estas seguro de retirarte",
-        text: "No hay vuelta atras!",
-        icon: "question",
-        showCancelButton: true,
-        cancelButtonText: "Volver a jugar",
-        confirmButtonText: "Si, deseo retirarme",
-        
-        background: "#defffcff" ,
-        iconColor: "#db5461ff",
-      })
-      .then((result) => {
-        if (result.isConfirmed) {
-          swalBoot
-            .fire({
-              title: "Listo, retiro exitoso!",
-              text: `Has ganado $${activePlayer.prize}`,
-              icon: "success",
-              color: "#db5461ff",
-              background: "#defffcff" ,
-            })
-            .then((results) => {
-              if (results.isConfirmed) {
-                restart();
-              }
-            });
-        }
-      });
-  }
-
-  export const toRanking = () => {
-    window.location.assign('ranking.html');
-   
-  
-  }
-
-  
- 
+/**
+ * Redireccion a ranking de jugadores
+ */
+export const toRanking = () => {
+  window.location.assign("ranking.html");
+};
