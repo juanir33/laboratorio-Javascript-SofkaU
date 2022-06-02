@@ -1,3 +1,5 @@
+
+
 export const selectDOMelement = (query) => {
     return  document.querySelector(query)
   };
@@ -9,4 +11,6 @@ export const selectDOMelement = (query) => {
       let classes = params
       return classList.add(classes)
   }
+
+  
   

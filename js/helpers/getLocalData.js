@@ -12,3 +12,4 @@ export const getQuestion = ()=>{
 export const restart = ()=>{
     window.location.reload()
 }
+
