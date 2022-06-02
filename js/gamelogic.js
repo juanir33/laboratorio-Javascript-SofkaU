@@ -91,7 +91,7 @@ export const playerSelect = (event) => {
       selectDOMelement("#next").style.display = "unset";
       selectDOMelement("#next").disabled = false;
       disableBtn(true);
-    }, 3000);
+    }, 2000);
   } else {
     selectDOMelement(selectBtn.id).classList.add("error");
     gameOver();
@@ -124,7 +124,19 @@ const updatePrize = () => {
   actualPlayer.innerText = newPrize;
   activePlayer.prize = newPrize;
   if (activePlayer.prize === mayorPrize) {
-    alert("ganaste");
+    swalBoot
+      .fire({
+        title: "FELICIDADES",
+        text: `Has ganado $${activePlayer.prize}`,
+        icon: "success",
+        color: "#db5461ff",
+        background: "#defffcff",
+      })
+      .then((result) => {
+        if (result.isConfirmed) {
+          restart();
+        }
+      });
   }
   setUser();
 };
