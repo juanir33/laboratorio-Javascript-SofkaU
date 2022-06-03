@@ -344,7 +344,7 @@ class Player {
 /**
  * Base de datos de jugadores inicial
  */
-export const players = [new Player("Juan"), new Player("Juanito")];
+export const players = [];
 /**
  * Nos permite hacer una instancia de la clase Player
  * @param {*} name nombre del jugador

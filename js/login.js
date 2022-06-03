@@ -82,13 +82,13 @@ const toGame = (event) => {
   let players = getPlayer();
   let field = selectDOMelement(".form-control");
   let child = selectDOMelement(".container_card");
-
-  if (field.value) {
+  let fieldValue = field.value.toUpperCase()
+  if (fieldValue) {
     let findPlayer = players.find((player) => {
-      return field.value === player.name;
+      return fieldValue === player.name;
     });
     if (!findPlayer) {
-      let newPlayer = playerInstance(field.value);
+      let newPlayer = playerInstance(fieldValue);
       players.push(newPlayer);
       let data = JSON.stringify(players);
       localStorage.setItem("players", data);
