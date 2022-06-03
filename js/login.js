@@ -84,14 +84,22 @@ const toGame = (event) => {
   let child = selectDOMelement(".container_card");
 
   if (field.value) {
-    let newPlayer = playerInstance(field.value);
-    players.push(newPlayer);
-    let data = JSON.stringify(players);
-    localStorage.setItem("players", data);
+    let findPlayer = players.find((player) => {
+      return field.value === player.name;
+    });
+    if (!findPlayer) {
+      let newPlayer = playerInstance(field.value);
+      players.push(newPlayer);
+      let data = JSON.stringify(players);
+      localStorage.setItem("players", data);
 
-    container.removeChild(child);
+      container.removeChild(child);
 
-    start();
+      start();
+    } else {
+      container.removeChild(child);
+      start();
+    }
   } else {
     alert("Por favor completa tu nombre");
   }
